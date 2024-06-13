@@ -1,0 +1,146 @@
+<?php
+require 'koneksi.php';
+
+$sql = "SELECT * FROM produk";
+$result = $koneksi->query($sql);
+
+if($result->num_rows > 0) {
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Produk</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<style>
+    .container {
+    width: 1080px;
+    margin: auto;
+}
+
+.nav-bar {
+    width: 1080px;
+    background-color: blue;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-top: 10px;
+}
+
+.nav-bar ul li {
+    list-style-type: none;
+    display: inline;    
+}
+
+.nav-bar ul li a {
+    text-decoration: none;
+    color: white;
+    padding-right: 25px;
+}
+
+.nav-bar ul li a:hover {
+    color: aqua;
+}
+
+.footer {
+    background-color: blue;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+
+.footer .teksFooter {
+    color: white;
+    text-align: center;
+}
+
+.main .content {
+    box-shadow: 0px 0px 5px grey;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.main .data td {
+    border: 1px solid black;
+    width: 100px;
+}
+
+.main .data {
+    margin-top: 10px;
+}
+
+.main .data th {
+    border: 1px solid black;
+}
+
+.main .data .col1 {
+    border: 1px solid black;
+    width: 50px;
+    text-align: center;
+}
+
+        </style>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <img width="1080px" src="Images/Header.png" alt="">
+        </div>
+
+        <div class="nav-bar">
+            <ul>
+                <li><a href="index.php">Beranda</a></li>
+                <li><a href="visi.php">Visi & Misi</a></li>
+                <li><a href="tampil.php">Produk Kami</a></li>
+                <li><a href="kontak.php">Kontak Kami</a></li>
+                <li><a href="masuk.php">Keluar</a></li>
+            </ul>
+        </div>
+
+        <div class="main">
+        <?php
+        require 'koneksi.php';
+            $sql = "SELECT * FROM produk";
+            $result = $koneksi->query($sql);
+            if ($result->num_rows > 0) {
+                echo "<table class='data'>";
+                echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Nama Produk</th>";
+                echo "<td>Keterangan</td>";
+                echo "<td>Harga</td>";
+                echo "<td>Status</td>";
+                echo "<td>Edit</td>";
+                echo "</tr>";
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>".$row["idProduk"]."</td>";
+                echo "<td>".$row["namaProduk"]."</td>";
+                echo "<td>".$row["keteranganProduk"]."</td>";
+                echo "<td>".$row["hargaProduk"]."</td>";
+                echo "<td>".$row["statusProduk"]."</td>";
+                echo '<td><a style="text-decoration:none; color:black;"href="edit.php?id='.$row['idProduk'].'">Edit</a></td>';
+                echo "</tr>";
+            }
+                echo "</table>";
+            }
+        ?>
+
+        </div>
+
+        <div class="footer">
+            <div class="teksFooter">
+                Copyright &copy; 2024. Iwan Service - Kota Pematangsiantar
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<?php
+}
+?>
